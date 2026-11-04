@@ -112,10 +112,8 @@ def terms(text):
     pieces = re.findall(r"\\[a-z]+|[a-zа-яα-ω]+|\d+|[=+−<>!∂∫∞≠≤≥]", text)
     result = []
     for piece in pieces:
-        # Короткий русский префикс связывает формы слова без внешней модели.
         if re.fullmatch(r"[а-я]{7,}", piece):
             piece = piece[:6]
-        # Hex сохраняет математические символы как самостоятельные FTS-токены.
         result.append("t" + piece.encode("utf-8").hex())
     return result
 
@@ -191,7 +189,7 @@ def retrieve(index, question, config, mode):
             candidates[hit["id"]] = hit
     ranked = sorted(scores, key=lambda key: (-scores[key], key))
     selected = [candidates[key] for key in ranked[:config["top_k"]]]
-    # Сосед не вытесняет основной результат и получает собственный block_id.
+    
     if mode in ("final", "no_option_search"):
         known = {hit["block_id"] for hit in selected}
         neighbors = []
@@ -401,7 +399,7 @@ def predict_one(index, client, question, config, mode):
             answer = parse_answer(content)
             validate_answer(answer, question, allowed, mode == "no_context")
     except (ValueError, KeyError, IndexError, TypeError, OSError, OpenAIError, httpx.HTTPError) as error:
-        
+
         trace["error"] = f"{type(error).__name__}: {error}"[:1500]
         answer = abstention(question["id"], "Технический отказ: не получен корректный подтверждённый ответ.")
     trace["elapsed_ms"] = round((time.perf_counter() - started) * 1000, 2)

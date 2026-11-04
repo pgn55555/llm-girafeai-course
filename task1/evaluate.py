@@ -85,7 +85,7 @@ def evaluate(questions, gold_rows, answers, traces, corpus_ids, no_context=False
             invalid = "Превышение бюджета"
         if not trace.get("usage_verified", False) or limit_bad:
             efficiency_valid = False
-        # Технический отказ не превращается в правильный содержательный отказ.
+        
         if trace.get("error"):
             invalid = trace["error"]
         correct = (not invalid and answer["abstain"] == reference["abstain"] and
