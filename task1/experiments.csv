@@ -1,0 +1,6 @@
+name,answer_accuracy,Q,mean_input_tokens,mean_output_tokens,mean_llm_calls,mean_cost,median_latency_ms
+no_context,,,,,,,
+baseline,,,,,,,
+final,,,,,,,
+no_option_search,,,,,,,
+no_neighbors,,,,,,,

@@ -1,0 +1,19 @@
+{
+  "runtime_path": "runtime.json",
+  "mode": "final",
+  "chunk_chars": 1400,
+  "chunk_overlap": 200,
+  "top_k": 6,
+  "candidates_per_query": 12,
+  "rrf_k": 60,
+  "neighbor_chars": 700,
+  "chat_overhead_tokens": 512,
+  "max_query_terms": 160,
+  "local_llm": {
+    "image": "vllm/vllm-openai:v0.20.2",
+    "model_dir": "models/Qwen3.5-4B",
+    "port": 8000,
+    "gpu_memory_utilization": 0.85,
+    "tensor_parallel_size": 1
+  }
+}
